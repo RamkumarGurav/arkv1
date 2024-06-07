@@ -1,0 +1,315 @@
+.review-block{
+  border-top: none;
+    border-bottom: 2px solid #f0f0f0;
+}
+.review-block .review-content{
+  padding: 20px 10px;
+}
+.review-img{
+  background-color: #ff9f00;
+  line-height: normal;
+    display: inline-block;
+    color: #fff;
+    padding: 2px 7px;
+    border-radius: 12px;
+    font-size: 12px;
+    /*background-color: #26a541;*/
+    vertical-align: baseline;
+    margin: 0 10px 0 0;
+}
+.review-img1{
+  background-color: #ff9f00;
+  line-height: normal;
+    display: inline-block;
+    color: #fff;
+    padding: 2px 7px;
+    border-radius: 12px;
+    font-size: 12px;
+    background-color: #26a541;
+    vertical-align: baseline;
+    margin: 0 10px 0 0;
+}
+.review-img1 img{
+  margin: -2px 0 0 2px;
+    height: 10px;
+}
+.review-img img{
+  margin: -2px 0 0 2px;
+    height: 10px;
+}
+.review-text{
+  display: inline;
+    vertical-align: baseline;
+    margin: auto 0;
+    line-height: 1.43;
+
+}
+.reviewer-name{
+font-weight: 500;
+    margin-right: 12px;font-size: 12px;
+    color: #878787;
+}
+.review-date{
+  font-size: 12px;
+    color: #878787;
+    margin-right: 8px;
+}
+
+
+/*review not found*/
+
+.review-n-found{
+/*height: 80px;*/
+    background: #fbc91d1f;
+    padding: 5px 10px;
+    margin: 0 8px;
+    margin-bottom: 10px
+
+}
+.review-n-found1{
+/*height: 80px;*/
+    background: #fff;
+    padding: 5px 10px;
+    margin: 0 8px;
+    margin-bottom: 10px
+
+}
+.review-n-found-head{
+      font-size: 22px;
+    color: #212121;
+    vertical-align: middle;
+    font-weight: 500;
+    float: left;
+    padding: 22px 0 22px 22px;
+}
+.review-n-found-rside{
+  /*float: right;*/
+    min-width: 300px;
+    margin: 10px;
+    font-weight: 400;
+}
+/*.pddg0{padding-left: 0;}*/
+.review-n-found1 h2{
+  padding: 22px 0;
+    height: 64px;
+    font-weight: 500;
+    font-size: 18px;
+    border: solid #e0e0e0;
+    border-width: 0 0 1px;
+}
+.review-n-found-content{
+  padding: 0 22px
+}
+
+/*--------------more reviews*/
+.more-review{
+  margin-bottom: 30px
+}
+.more-review .border-r{
+border-right: 2px solid rgb(240, 240, 240);
+}
+.more-review .review-title{
+  font-weight: 600;
+    line-height: 1.29;
+    color: #878787;
+    margin-bottom: 2px;
+    letter-spacing: 0;
+    margin-top: 10px
+}
+.more-review a{
+      color: #bc9b25;
+}
+.more-review .r-price .cur-price{
+display: inline-block;
+    font-size: 16px;
+    font-weight: 600;
+    color: #212121;
+}
+.more-review .r-price .strike-price{
+display: inline-block;
+    margin-left: 8px;
+    text-decoration: line-through;
+    font-size: 14px;
+    color: #878787;
+  }
+  .more-review .r-price .discount{
+        display: inline-block;
+color: #388e3c;
+    font-size: 13px;
+    letter-spacing: -.2px;
+    font-weight: 600;
+  }
+
+  .rpay {
+    display: inline;
+    white-space: pre-wrap;
+}
+
+.rpay-img {
+    position: relative;
+    margin: 0 auto;
+    display: inline-block;
+    padding-top: 0!important;
+    vertical-align: middle;
+}
+.rpay-img img {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    margin: auto;
+    opacity: 1;
+    max-width: 100%;
+    max-height: 100%;
+}
+.more-review .rightside{
+      border-bottom: 2px solid rgb(240, 240, 240);
+    flex-grow: 1;
+}
+.dblck{
+  display: block;
+}
+.more-review .rightside .maintitle{
+  font-size: 24px;
+    padding: 24px;
+    border-bottom: none;
+}
+.rmiddle-content{
+  width: 100%;
+    min-height: 154px;
+    padding: 24px;
+}
+.riconrside{
+      text-align: center;
+    border-right: 1px solid #f0f0f0;
+    padding: 6px 0;
+  }
+.r-icon{
+  padding: 4px 8px;
+    border-radius: 20px;
+    font-size: 20px;
+    background-color: #26a541;
+    vertical-align: baseline;
+    line-height: normal;
+    display: inline-block;
+        color: #fff;
+   /* width: 65px;*/
+}
+.r-icon img{
+  height: 16px;
+  margin: -2px 0 0 2px;
+}
+.r-content{
+      color: #878787;
+    margin-top: 12px;
+    padding: 0 5px;
+}
+
+.review-bar{
+      width: 100%;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-flow: nowrap;
+    -ms-flex-flow: nowrap;
+    flex-flow: nowrap;
+    height: 100%;
+}
+.rbar1{
+  -webkit-flex-basis: 16.66%;
+    -ms-flex-preferred-size: 16.66%;
+    flex-basis: 16.66%;
+}
+.rbar1 li{
+      padding: 1px 0 0;
+    height: 20px;
+        list-style: none;
+}
+.rbar1 li div{
+      text-align: center;
+
+}
+.rbar1 li div .span1{
+  font-size: 12px;
+    font-weight: 500;
+    color: #212121;
+    padding: 2px 0;
+}
+.rbar1 li div .span2{
+  font-size: 12px;
+    color: #212121;
+    padding: 0 0 0 2px;
+}
+
+.rbar2{
+      -webkit-flex-basis: 58.33%;
+    -ms-flex-preferred-size: 58.33%;
+    flex-basis: 58.33%;
+}
+.rbar2 li{
+  padding: 1px 0 0;
+    height: 20px;
+      list-style: none;
+}
+.rbar2 li div .rbar2-inner{
+  height: 5px;
+    border-radius: 100px;
+        position: relative;
+    background: #f0f0f0;
+    margin-top: 7px;
+    margin-left: 7px;
+
+
+}
+.rbar2 li div .rbar2-inner .pbar1{
+      background-color: #388e3c;
+}
+.rbar2 li div .rbar2-inner .pbar2{
+ 
+  left: 0;
+    position: absolute;
+    width: 0;
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
+    -webkit-transform-origin: left center;
+    transform-origin: left center;
+    transition: -webkit-transform .4s cubic-bezier(0,0,.3,1) .3s;
+    transition: transform .4s cubic-bezier(0,0,.3,1) .3s;
+    transition: transform .4s cubic-bezier(0,0,.3,1) .3s,-webkit-transform .4s cubic-bezier(0,0,.3,1) .3s;
+}
+.innerbar1{
+  background-color: #388e3c !important;
+    width: 100%;
+}
+.innerbar2{
+background-color: #388e3c !important;
+  width: 64.7059%;
+}
+.innerbar3{
+  background-color: #388e3c !important;
+    width: 19.6078%;
+}
+.innerbar4{
+  background-color: #ff9f00 !important;
+   width: 9.80392%;
+}
+.innerbar5{
+     background-color: #ff6161 !important;
+   width: 15.6863%;
+}
+.rbar3{
+  -webkit-flex-basis: 25%;
+    -ms-flex-preferred-size: 25%;
+    flex-basis: 25%;
+}
+.rbar3 li{
+  padding: 1px 0 0;
+    height: 20px;
+        list-style: none;
+}
+.rbar3 li div{
+  font-size: 12px;
+    color: #878787;
+    padding: 0 5px 0 12px;
+}

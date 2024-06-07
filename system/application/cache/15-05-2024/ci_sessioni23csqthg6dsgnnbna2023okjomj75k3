@@ -1,0 +1,12 @@
+__ci_last_regenerate|i:1715775085;application_sess_store_id|i:1;application_sess_currency_id|i:1;application_sess_country_id|s:1:"1";application_sess_wishlist_count|i:0;application_sess_temp_id|s:1:"1";application_sess_cart_count|s:1:"5";lastviewed_product_id_|a:3:{i:0;s:2:"72";i:1;s:2:"12";i:2;s:2:"52";}lastviewed_cobination_id_|a:3:{i:0;s:2:"93";i:1;s:2:"25";i:2;s:2:"60";}application_sess_redirect|s:16:"Payment_Checkout";application_sess_temp_name|s:4:"Anil";application_sess_temp_email|s:25:"anil@marswebsolutions.com";application_sess_cart_page_address|s:410:"     
+     <div class="select-delivery">
+                <div class="select-delivery-inner">
+                    <div class="delivery-username">Anil</div>
+                    <span>, 560069</span>
+                    <span class="delivery-type">Work</span>
+                </div>
+                <p class="select-delivery-desc">Aswa Building
+Jayanagar-9th block, Bangalore, Karnataka </p>
+            </div>
+
+";application_sess_cart_page_selected_address_id|s:1:"1";message|s:67:"<div class=" alert alert-danger">This is invalid coupon code.</div>";__ci_vars|a:1:{s:7:"message";s:3:"old";}

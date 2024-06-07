@@ -1,0 +1,12 @@
+__ci_last_regenerate|i:1716530806;application_sess_store_id|i:1;application_sess_currency_id|i:1;application_sess_country_id|s:1:"1";application_sess_wishlist_count|s:1:"2";application_sess_temp_id|s:1:"1";application_sess_cart_count|s:1:"3";application_sess_redirect|s:8:"checkout";application_sess_temp_name|s:4:"Anil";application_sess_temp_email|s:25:"anil@marswebsolutions.com";application_sess_cart_page_address|s:410:"     
+     <div class="select-delivery">
+                <div class="select-delivery-inner">
+                    <div class="delivery-username">Anil</div>
+                    <span>, 560069</span>
+                    <span class="delivery-type">Work</span>
+                </div>
+                <p class="select-delivery-desc">Aswa Building
+Jayanagar-9th block, Bangalore, Karnataka </p>
+            </div>
+
+";application_sess_cart_page_selected_address_id|s:1:"1";message|s:81:"<div class=" alert alert-warning">The pin code (560069) is not serviceable.</div>";__ci_vars|a:1:{s:7:"message";s:3:"old";}
