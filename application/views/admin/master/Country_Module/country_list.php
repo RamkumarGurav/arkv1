@@ -172,11 +172,11 @@ $page_module_name = "Country";
                     </div>
 
                 </div>
-
                 <!-- }}}}}}}}}}}} Search Accordian  -->
 
                 <!--   {{{{{{{{{{ Main Card with actions and Table -->
                 <div class="card">
+
 
                     <!--   {{{{{{{{{{ Main Card Header -->
                     <div class="card-header">
@@ -208,7 +208,7 @@ $page_module_name = "Country";
                     </div>
                     <!-- }}}}}}}}}}}} Main Card Header  -->
 
-
+                    <!--   {{{{{{{{{{ Main Table-->
                     <?php
                     if ($user_access->view_module == 1) {
                         ?>
@@ -277,6 +277,7 @@ $page_module_name = "Country";
                         $this->data['no_access_flash_message'] = "You Dont Have Access To View " . $page_module_name;
                         $this->load->view('admin/template/access_denied', $this->data);
                     } ?>
+                    <!--   }}}}}}}}}}}} Main Table-->
                     <!-- /.card-body -->
                 </div>
                 <!-- }}}}}}}}}}}}  Main Card with actions and Table  -->

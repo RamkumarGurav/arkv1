@@ -18,7 +18,7 @@ class Country_Model extends CI_Model
 
 
 	/**
-	 * getting countries with search ,pagination  and sorting 
+	 * getting countries with search ,pagination  and sorting using params ,if your using this method to find single country data with its country_id then it will be present int the 0th index of the resultant array
 	 */
 	function get_country($params = array())
 	{

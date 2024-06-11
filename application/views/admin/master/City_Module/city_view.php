@@ -55,6 +55,7 @@ if(!empty($city_data))
                     <div class="card-header">
                         <h3 class="card-title"><?=$city_data->city_name?></h3>
                         <div class="float-right">
+                            <!-- {{{{{{{{  in this page this "Add new" button is disabled using "& false" -->
                             <?php 
 								if($user_access->add_module==1 && false)	{
 								?>
@@ -62,6 +63,9 @@ if(!empty($city_data))
                             <button type="button" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Add
                                 New</button></a>
                             <? } ?>
+                                <!-- }}}}}}}}  in this page this button is disabled using "& false" -->
+
+
                             <?php 
 							if($user_access->update_module==1)	{
 							?>
@@ -112,6 +116,7 @@ if(!empty($city_data))
                                                 <? }?>
                                     </div>
                                 </div>
+                                <!-- {{{{{{{{ Table view using div -->
                                 <div class="TableRow">
                                		 <div class="table_col">
                                     <label class="label_content_br">Added On <span class="colen">:</span></label>
@@ -137,7 +142,9 @@ if(!empty($city_data))
                                     </div>
                                     
                                 </div>
+                                <!-- }}}}}}}}}}} Table view using div -->
                             </div>
+                          <!-- {{{{{{{{ Table view using table (this is hidden , still in testing) -->
                             <table id="" class="table table-bordered table-hover myviewtable" style="display:none;">                                
                                 <tbody>                                    
 									<tr>
@@ -174,6 +181,7 @@ if(!empty($city_data))
                                 </tbody>
                                 
 						</table>
+                        <!-- }}}}}}} Table view using table (this is hidden , still in testing) -->
 						<?php echo form_close() ?>
                     </div>
                     <? }else{ 
