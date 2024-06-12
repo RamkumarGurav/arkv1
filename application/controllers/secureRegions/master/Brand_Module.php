@@ -4,7 +4,9 @@ require_once(APPPATH."controllers/secureRegions/Main.php");
 class Brand_Module extends Main {
 
 	function __construct() {
-        parent::__construct();
+    parent::__construct();
+
+		
 		$this->load->database();
 		$this->load->library('session');
 		$this->load->model('Common_Model');

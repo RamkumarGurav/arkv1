@@ -11,9 +11,13 @@ class User_auth
 	function __construct()
 	{
 		$this->CI =& get_instance();
+
 		$this->CI->load->database();
+
 		$this->CI->load->library('session');
 		$this->CI->load->helper('url');
+
+
 		$this->CI->load->model('administrator/Admin_Common_Model');
 
 		$this->session_uid = $this->CI->session->userdata('sess_psts_uid');
@@ -22,60 +26,85 @@ class User_auth
 		$this->sess_company_profile_id = $this->CI->session->userdata('sess_company_profile_id');
 	}
 
+
+
+	/****************************************************************
+	 *HELPERS
+	 ****************************************************************/
+
+	function unset_only()
+	{
+		$user_data = $this->session->all_userdata();
+		foreach ($user_data as $key => $value) {
+			if ($key != 'session_id' && $key != 'ip_address' && $key != 'user_agent' && $key != 'last_activity') {
+				$this->session->unset_userdata($key);
+			}
+		}
+	}
+
+	/****************************************************************
+	 ****************************************************************/
+
+
+	/**
+	 * The check_user_status method verifies if the current user is logged in and active. It retrieves the user's data from the database. If the user is blocked or there is an issue retrieving the data, it clears the session, sets an error message, and redirects to the login page. If the user is logged in but the session is invalid, it also clears the session, sets an error message, and redirects to the login page. Additionally, if a screen lock is set, it redirects to the screen lock page. The method finally returns the user's data if all checks are passed
+	 */
 	function check_user_status()
 	{
+		// Initialize user_data variable
 		$this->data['user_data'] = '';
+
+		// Check if the session user ID is greater than 0 and the session name is not empty
 		if ($this->session_uid > 0 && !empty($this->session_name)) {
+			// Retrieve admin user data
 			$this->data['user_data'] = $this->CI->Admin_Common_Model->get_admin_user_data(array());
+
+			// Check if user data is retrieved
 			if (!empty($this->data['user_data'])) {
+				// Check if the user status is not active (1)
 				if ($this->data['user_data']->status != 1) {
+					// Clear specific session data and redirect to login page
 					$this->unset_only();
 					$this->CI->session->set_flashdata('alert_message', '<div class="alert alert-danger alert-dismissible">
-					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-					<i class="icon fas fa-ban"></i> You are blocked by Management.
-					</div>');
+									<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+									<i class="icon fas fa-ban"></i> You are blocked by Management.
+									</div>');
 					$this->CI->session->unset_userdata('sess_psts_uid');
-					$this->CI->session->unset_userdata('sess_psts_uid');
+					$this->CI->session->unset_userdata('sess_psts_uid'); // Duplicate line, seems to be a mistake
 					REDIRECT(MAINSITE_Admin . 'login');
 				}
 			} else {
+				// Clear specific session data and redirect to login page
 				$this->unset_only();
 				$this->CI->session->set_flashdata('alert_message', '<div class="alert alert-danger alert-dismissible">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-				<i class="icon fas fa-ban"></i> Something Went Wrong. Please Try Again.
-				</div>');
+							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+							<i class="icon fas fa-ban"></i> Something Went Wrong. Please Try Again.
+							</div>');
 				$this->CI->session->unset_userdata('sess_psts_uid');
 				REDIRECT(MAINSITE_Admin . 'login');
 			}
-
 		} else {
+			// Clear specific session data and redirect to login page
 			$this->unset_only();
 			$this->CI->session->set_flashdata('alert_message', '<div class="alert alert-danger alert-dismissible">
-			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-			<i class="icon fas fa-ban"></i> Session Out Please Try Again.
-			</div>');
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+					<i class="icon fas fa-ban"></i> Session Out Please Try Again.
+					</div>');
 			$this->CI->session->unset_userdata('sess_psts_uid');
 			REDIRECT(MAINSITE_Admin . 'login');
 		}
 
+		// Check if the screen lock session data is set and redirect if necessary
 		$screen_lock = $this->CI->session->userdata('screen_lock');
 		if (!empty($screen_lock)) {
 			REDIRECT(MAINSITE_Admin . 'Screen-Lock');
 		}
 
-
+		// Return the user_data
 		return $this->data['user_data'];
 	}
 
-	function unset_only()
-	{
-		$user_data = $this->CI->session->all_userdata();
-		foreach ($user_data as $key => $value) {
-			if ($key != 'session_id' && $key != 'ip_address' && $key != 'user_agent' && $key != 'last_activity') {
-				$this->CI->session->unset_userdata($key);
-			}
-		}
-	}
+
 
 	/**
 	 * Generates the left menu HTML based on the master status, additional parameters, and module ID.
@@ -224,13 +253,18 @@ class User_auth
 	}
 
 
+	/**
+	 * this method actualy run by Admin_Common_Model for checking the admin user access
+	 */
 	function check_user_access($params = array())
 	{
+		// Check if parameters are provided
 		if (!empty($params)) {
+			// Call the method in Admin_Common_Model to check user access based on provided parameters
 			$menu = $this->CI->Admin_Common_Model->check_user_access($params);
-			return $menu;
+			return $menu; // Return the result
 		} else {
-			return false;
+			return false; // If no parameters are provided, return false
 		}
 	}
 

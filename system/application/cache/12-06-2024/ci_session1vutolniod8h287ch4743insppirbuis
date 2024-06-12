@@ -1,0 +1,4 @@
+__ci_last_regenerate|i:1718187826;alert_message|s:234:"<div class="alert alert-danger alert-dismissible">
+									<div type="button" class="close" data-dismiss="alert" aria-hidden="true">×</div>
+									<i class="icon fas fa-ban"></i> Wrong Email/Username Or Password
+									</div>";__ci_vars|a:1:{s:13:"alert_message";s:3:"new";}

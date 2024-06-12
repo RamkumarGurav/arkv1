@@ -7,20 +7,30 @@ class Main extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
+
+		//db
 		$this->load->database();
+
+		//libraries
 		$this->load->library('session');
-		$this->load->model('Common_Model');
-		$this->load->model('administrator/Admin_Common_Model');
-		$this->load->model('administrator/Admin_model');
-		$this->load->helper('form');
 		$this->load->library('form_validation');
 		$this->load->library('User_auth');
 
+		//helpers
+		$this->load->helper('url');
+		$this->load->helper('form');
+
+		//models
+		$this->load->model('Common_Model');
+		$this->load->model('administrator/Admin_Common_Model');
+		$this->load->model('administrator/Admin_model');
+
+
+		//data storing from sessions
 		$session_uid = $this->data['session_uid'] = $this->session->userdata('sess_psts_uid');
 		$this->data['session_name'] = $this->session->userdata('sess_psts_name');
 		$this->data['session_email'] = $this->session->userdata('sess_psts_email');
 
-		$this->load->helper('url');
 
 		//checking logged in admin user status
 		$this->data['User_auth_obj'] = new User_auth();
@@ -35,6 +45,8 @@ class Main extends CI_Controller
 
 	}
 
+
+	//CLEARING SESSION DATA
 	function unset_only()
 	{
 		$user_data = $this->session->all_userdata();

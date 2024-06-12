@@ -7,8 +7,18 @@ class Wam extends Main
 	function __construct()
 	{
 		parent::__construct();
+
+		//db
 		$this->load->database();
+
+		//libraries
 		$this->load->library('session');
+		$this->load->library('User_auth');
+
+		//helpers
+		$this->load->helper('url');
+
+		//models
 		$this->load->model('Common_Model');
 		$this->load->model('administrator/Admin_Common_Model');
 		$this->load->model('administrator/Admin_model');
@@ -18,20 +28,26 @@ class Wam extends Main
 		//$this->load->model('administrator/Invoice_Model');
 		//$this->load->model('administrator/Invoice_Delivery_Note_Model');
 		//$this->load->model('administrator/Purchase_Order_Model');
-		$this->load->library('User_auth');
 
+		//storing session data in ci data var
 		$session_uid = $this->data['session_uid'] = $this->session->userdata('sess_psts_uid');
 		$this->data['session_name'] = $this->session->userdata('sess_psts_name');
 		$this->data['session_email'] = $this->session->userdata('sess_psts_email');
 		$this->data['sess_fiscal_year_id'] = $this->session->userdata('sess_fiscal_year_id');
 		$this->data['sess_company_profile_id'] = $this->session->userdata('sess_company_profile_id');
 
-		$this->load->helper('url');
 
+		// getting user data from User_auth
 		$this->data['User_auth_obj'] = new User_auth();
 		$this->data['user_data'] = $this->data['User_auth_obj']->check_user_status();
 
 	}
+
+
+
+	/****************************************************************
+	 *HELPERS
+	 ****************************************************************/
 
 	function unset_only()
 	{
@@ -43,7 +59,14 @@ class Wam extends Main
 		}
 	}
 
+	/****************************************************************
+	 ****************************************************************/
 
+
+
+	/**
+	 * LOADS DASHBOARD
+	 */
 	function index()
 	{
 
@@ -80,9 +103,31 @@ class Wam extends Main
 		parent::get_footer();
 	}
 
+
+	// ADMIN lOGOUT METHOD
+	function logout()
+	{
+		// Call the unset_only method to clear specific session data (details of this method are not provided)
+		$this->unset_only();
+		$alert_message = '<div class="alert alert-success alert-dismissible"><div type="button" class="close" data-dismiss="alert" aria-hidden="true">×</div><i class="icon fas fa-check"></i> You Are Successfully Logout. </div>';
+		// Set a flash data message indicating successful logout, INSED "secureRegions/Login.php"'s index() method we set this to 	$this->data['alert_message'] 
+		$this->session->set_flashdata('alert_message', $alert_message);
+
+		// Unset the session data for 'sess_psts_uid' to remove the user ID from the session
+		$this->session->unset_userdata('sess_psts_uid');
+
+		// Redirect to the login page
+		REDIRECT(MAINSITE_Admin . 'login');
+	}
+
+
+	/**
+	 * Loads the admin profile,
+	 */
 	function view_profile()
 	{
 		$this->load->model('administrator/Employee_Model');
+
 		$this->data['tab_type'] = 'profile';
 
 		if (!empty($_POST['update_password_button'])) {
@@ -172,18 +217,6 @@ class Wam extends Main
 		parent::get_footer();
 	}
 
-
-
-	function logout()
-	{
-		$this->unset_only();
-		$this->session->set_flashdata('alert_message', '<div class="alert alert-success alert-dismissible">
-		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-		<i class="icon fas fa-check"></i> You Are Successfully Logout.
-		</div>');
-		$this->session->unset_userdata('sess_psts_uid');
-		REDIRECT(MAINSITE_Admin . 'login');
-	}
 
 	function lock_screen()
 	{

@@ -7,22 +7,24 @@ class City_Module extends Main
 	function __construct()
 	{
 		parent::__construct();
+
 		$this->load->database();
+
 		$this->load->library('session');
+		$this->load->library('User_auth');
+		$this->load->helper('url');
+
 		$this->load->model('Common_Model');
 		$this->load->model('administrator/Admin_Common_Model');
 		$this->load->model('administrator/Admin_model');
 		$this->load->model('administrator/master/City_Model');
 		$this->load->library('pagination');
 
-		$this->load->library('User_auth');
 
 		$session_uid = $this->data['session_uid'] = $this->session->userdata('sess_psts_uid');
-
 		$this->data['session_name'] = $this->session->userdata('sess_psts_name');
 		$this->data['session_email'] = $this->session->userdata('sess_psts_email');
 
-		$this->load->helper('url');
 
 		$this->data['User_auth_obj'] = new User_auth();
 		$this->data['user_data'] = $this->data['User_auth_obj']->check_user_status();
@@ -31,6 +33,12 @@ class City_Module extends Main
 		$this->output->set_header("Pragma: no-cache");
 
 	}
+
+
+
+	/****************************************************************
+	 *HELPERS
+	 ****************************************************************/
 
 	function unset_only()
 	{
@@ -41,6 +49,12 @@ class City_Module extends Main
 			}
 		}
 	}
+
+	/****************************************************************
+	 ****************************************************************/
+
+
+
 
 
 	function index()

@@ -176,41 +176,7 @@ class Common_Model extends CI_Model
 	/****************************************************************
 	 *****************************************************************/
 
-	/****************************************************************
-	 *SPECIFIC DB TABLE DATA OPERATIONS
-	 *****************************************************************/
-	/**
-	 * Function to retrieve country data from the database
-	 *
-	 * @param array $params Optional parameters
-	 * @return mixed Array containing country data if found, otherwise false
-	 */
-	function getCountry($params = array())
-	{
-		// Select specific columns from the 'country' table
-		$this->db
-			->select('c.country_id, c.country_name, c.country_short_name, c.country_code')
-			->from('country as c')
-			->where('status', 1); // Filter by status = 1 (assuming 1 represents active)
 
-		// Execute the query
-		$result = $this->db->get();
-
-		// Check if there are rows returned
-		if ($result->num_rows() > 0) {
-			// If rows are found, retrieve the result as an array of objects
-			$result = $result->result();
-			// Optionally, you can remove the following line as it does not modify the result
-			$result = $result;
-			// Return the result
-			return $result;
-		} else {
-			// If no rows are found, return false
-			return false;
-		}
-	}
-	/****************************************************************
-	 ****************************************************************/
 
 
 	/****************************************************************
@@ -241,8 +207,8 @@ class Common_Model extends CI_Model
 	}
 
 	/****************************************************************
-																											 
-																*****************************************************************/
+																															 
+	 ****************************************************************/
 
 	/****************************************************************
 	 ****************************************************************
@@ -308,43 +274,70 @@ class Common_Model extends CI_Model
 		return $wishlist_count;
 	}
 
+	/**
+	 * The method checks if a currency ID is stored in the session. If a currency ID is found, it fetches the corresponding currency from the database and updates the session with the fetched currency ID. If no currency ID is found in the session, it fetches the default currency from the database and updates the session with the fetched default currency ID. The method returns the currency data if found; otherwise, it returns false
+	 */
 	function setCurency($params = array())
 	{
+		// Get the currently set currency ID from the session
 		$temp_currency_id = $this->session->userdata('application_sess_currency_id');
+
+		// Check if there is a currency ID in the session
 		if (!empty($temp_currency_id)) {
+			// Build a database query to select the currency data with the currency ID from the session
 			$this->db
-				->select('c.*')
-				->from('currency as c')
-				->where('status', 1)
-				->where('currency_id', $temp_currency_id)
-				->limit(1);
+				->select('c.*') // Select all columns from the currency table
+				->from('currency as c') // From the currency table aliased as 'c'
+				->where('status', 1) // Where the status column is 1 (indicating active currency)
+				->where('currency_id', $temp_currency_id) // And where the currency_id matches the ID from the session
+				->limit(1); // Limit the query to return only one row
+
+			// Execute the query and store the result
 			$result = $this->db->get();
+
+			// Check if the query returned any rows
 			if ($result->num_rows() > 0) {
+				// Fetch the result as an array of objects
 				$result = $result->result();
+				// Get the first (and only) element from the result array
 				$result = $result[0];
+				// Update the session with the currency ID from the result
 				$this->session->set_userdata('application_sess_currency_id', $result->currency_id);
+				// Return the currency data
 				return $result;
 			} else {
+				// If no rows were returned, return false
 				return false;
 			}
 		} else {
+			// If there is no currency ID in the session, select the default currency
 			$this->db
-				->select('c.*')
-				->from('currency as c')
-				->where('status', 1)
-				->where('defaults', 1)
-				->limit(1);
+				->select('c.*') // Select all columns from the currency table
+				->from('currency as c') // From the currency table aliased as 'c'
+				->where('status', 1) // Where the status column is 1 (indicating active currency)
+				->where('defaults', 1) // And where the defaults column is 1 (indicating default currency)
+				->limit(1); // Limit the query to return only one row
+
+			// Execute the query and store the result
 			$result = $this->db->get();
+
+			// Check if the query returned any rows
 			if ($result->num_rows() > 0) {
+				// Fetch the result as an array of objects
 				$result = $result->result();
+				// Get the first (and only) element from the result array
 				$result = $result[0];
+				// Update the session with the currency ID from the result
 				$this->session->set_userdata('application_sess_currency_id', $result->currency_id);
+				// Return the currency data
 				return $result;
 			} else {
+				// If no rows were returned, return false
 				return false;
 			}
 		}
 	}
+
 
 	function getMenu($params = array())
 	{
@@ -375,17 +368,17 @@ class Common_Model extends CI_Model
 			$this->db->where("c.is_outer_menu", $params['is_outer_menu']);
 		}
 		/*if(__is_location_wise_product__)
-																																																															{
-																																																																$this->db->where("p.is_sell_local  in (".__app_is_sell_local__.")");
-																																																															}*/
+																																																																							{
+																																																																								$this->db->where("p.is_sell_local  in (".__app_is_sell_local__.")");
+																																																																							}*/
 		/*if($this->client_type==2)
-																																																															{
-																																																																$this->db->where("p.product_sell_to  in (1,3)");
-																																																															}
-																																																															else
-																																																															{
-																																																																$this->db->where("p.product_sell_to  in (1,2)");
-																																																															}*/
+																																																																							{
+																																																																								$this->db->where("p.product_sell_to  in (1,3)");
+																																																																							}
+																																																																							else
+																																																																							{
+																																																																								$this->db->where("p.product_sell_to  in (1,2)");
+																																																																							}*/
 
 		$query_get_list = $this->db->get(); {
 
@@ -416,17 +409,17 @@ class Common_Model extends CI_Model
 						//->where('pis.status' , 1)
 						->order_by('c.position asc');
 					/*if(__is_location_wise_product__)
-																																																																																																																																																												{
-																																																																																																																																																													$this->db->where("p.is_sell_local  in (".__app_is_sell_local__.")");
-																																																																																																																																																												}
-																																																																																																																																																												if($this->client_type==2)
-																																																																																																																																																												{
-																																																																																																																																																													$this->db->where("p.product_sell_to  in (1,3)");
-																																																																																																																																																												}
-																																																																																																																																																												else
-																																																																																																																																																												{
-																																																																																																																																																													$this->db->where("p.product_sell_to  in (1,2)");
-																																																																																																																																																												}*/
+																																																																																																																																																																																{
+																																																																																																																																																																																	$this->db->where("p.is_sell_local  in (".__app_is_sell_local__.")");
+																																																																																																																																																																																}
+																																																																																																																																																																																if($this->client_type==2)
+																																																																																																																																																																																{
+																																																																																																																																																																																	$this->db->where("p.product_sell_to  in (1,3)");
+																																																																																																																																																																																}
+																																																																																																																																																																																else
+																																																																																																																																																																																{
+																																																																																																																																																																																	$this->db->where("p.product_sell_to  in (1,2)");
+																																																																																																																																																																																}*/
 					$query_get_list1 = $this->db->get();
 					//echo $this->db->last_query();
 					{
@@ -455,17 +448,17 @@ class Common_Model extends CI_Model
 									//	->where('pis.status' , 1)
 									->order_by('c.position asc');
 								/*if(__is_location_wise_product__)
-																																																																																																																																																																																																																																																									{
-																																																																																																																																																																																																																																																										$this->db->where("p.is_sell_local  in (".__app_is_sell_local__.")");
-																																																																																																																																																																																																																																																									}
-																																																																																																																																																																																																																																																									if($this->client_type==2)
-																																																																																																																																																																																																																																																									{
-																																																																																																																																																																																																																																																										$this->db->where("p.product_sell_to  in (1,3)");
-																																																																																																																																																																																																																																																									}
-																																																																																																																																																																																																																																																									else
-																																																																																																																																																																																																																																																									{
-																																																																																																																																																																																																																																																										$this->db->where("p.product_sell_to  in (1,2)");
-																																																																																																																																																																																																																																																									}*/
+																																																																																																																																																																																																																																																																																									{
+																																																																																																																																																																																																																																																																																										$this->db->where("p.is_sell_local  in (".__app_is_sell_local__.")");
+																																																																																																																																																																																																																																																																																									}
+																																																																																																																																																																																																																																																																																									if($this->client_type==2)
+																																																																																																																																																																																																																																																																																									{
+																																																																																																																																																																																																																																																																																										$this->db->where("p.product_sell_to  in (1,3)");
+																																																																																																																																																																																																																																																																																									}
+																																																																																																																																																																																																																																																																																									else
+																																																																																																																																																																																																																																																																																									{
+																																																																																																																																																																																																																																																																																										$this->db->where("p.product_sell_to  in (1,2)");
+																																																																																																																																																																																																																																																																																									}*/
 								$query_get_list2 = $this->db->get(); {
 									if ($query_get_list2->num_rows() > 0) {
 										$sscCount = -1;
@@ -922,8 +915,8 @@ class Common_Model extends CI_Model
 		$insertStatus = $this->add_operation(array('table' => 'email_log', 'data' => $entereddatamaillog));
 		//exit;
 		/*$params['to'] = 'abhishek.khandelwal@marswebsolution.com';
-																																																														$params['name'] = 'Abhishek Khandelwal';
-																																																														$this->re_send_mail($params);*/
+																																																																						$params['name'] = 'Abhishek Khandelwal';
+																																																																						$this->re_send_mail($params);*/
 	}
 
 	function re_send_mail($params = array())
@@ -1083,6 +1076,50 @@ class Common_Model extends CI_Model
 	}
 
 
+
+
+	///CURRENTLY NOT USING METHODS
+	/****************************************************************
+	 *SPECIFIC DB TABLE DATA OPERATIONS
+	 *****************************************************************/
+
+
+	/**
+	 * Function to retrieve country data from the database
+	 *
+	 * @param array $params Optional parameters
+	 * @return mixed Array containing country data if found, otherwise false
+	 */
+	//not using
+	function getCountry($params = array())
+	{
+		// Select specific columns from the 'country' table
+		$this->db
+			->select('c.country_id, c.country_name, c.country_short_name, c.country_code')
+			->from('country as c')
+			->where('status', 1); // Filter by status = 1 (assuming 1 represents active)
+
+		// Execute the query
+		$result = $this->db->get();
+
+		// Check if there are rows returned
+		if ($result->num_rows() > 0) {
+			// If rows are found, retrieve the result as an array of objects
+			$result = $result->result();
+			// Optionally, you can remove the following line as it does not modify the result
+			$result = $result;
+
+
+
+			// Return the result
+			return $result;
+		} else {
+			// If no rows are found, return false
+			return false;
+		}
+	}
+	/****************************************************************
+	 ****************************************************************/
 
 }
 
