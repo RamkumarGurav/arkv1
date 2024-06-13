@@ -227,7 +227,8 @@ $page_module_name = "Role Master";
                                                     <td><input type="checkbox" name="sel_recds[]" id="sel_recds<?php echo $count; ?>"
                                                             value="<?php echo $urm->user_role_id; ?>" /></td>
                                                 <? } ?>
-                                                <td><a
+                                                <td>
+                                                    <a
                                                         href="<?= MAINSITE_Admin . $user_access->class_name . "/role-manager-view/" . $urm->user_role_id ?>"><?= $urm->user_role_name ?></a>
                                                 </td>
                                                 <td><?= date("d-m-Y", strtotime($urm->added_on)) ?></td>

@@ -116,25 +116,46 @@ if(!empty($users_role_master_data))
 													if($md->module_id == $mpd->module_id)
 													{
 														if(!empty($mpd->view_module))
-														{ $view_checked = '<button type="button" class="btn btn-sm btn-block btn-success">Yes</button> ';		 $all_checked = 'checked';}
+														{ 
+                                                        $view_checked = '<button type="button" class="btn btn-sm btn-block btn-success">Yes</button> ';	
+                                                        $all_checked = 'checked';
+                                                        }
 
 														if(!empty($mpd->add_module))
-														{ $add_checked = '<button type="button" class="btn btn-sm btn-block btn-success">Yes</button>';			 $all_checked = 'checked';}
+														{ 
+                                                            $add_checked = '<button type="button" class="btn btn-sm btn-block btn-success">Yes</button>';
+                                                            $all_checked = 'checked';
+                                                        }
 									
+
 														if(!empty($mpd->update_module))
-														{ $update_checked = '<button type="button" class="btn btn-sm btn-block btn-success">Yes</button>';		 $all_checked = 'checked';}
+														{ 
+                                                            $update_checked = '<button type="button" class="btn btn-sm btn-block btn-success">Yes</button>';
+                                                          $all_checked = 'checked';
+                                                        }
 									
 														if(!empty($mpd->delete_module))
-														{ $delete_checked = '<button type="button" class="btn btn-sm btn-block btn-success">Yes</button>';		 $all_checked = 'checked';}
+														{ 
+                                                            $delete_checked = '<button type="button" class="btn btn-sm btn-block btn-success">Yes</button>';
+                                                           $all_checked = 'checked';
+                                                        }
 									
 														if(!empty($mpd->approval_module	))
-														{ $approval_checked = '<button type="button" class="btn btn-sm btn-block btn-success">Yes</button>';	 $all_checked = 'checked';}
+														{ $approval_checked = '<button type="button" class="btn btn-sm btn-block btn-success">Yes</button>';
+                                                           $all_checked = 'checked';
+                                                        }
 									
 														if(!empty($mpd->import_data))
-														{ $import_checked = '<button type="button" class="btn btn-sm btn-block btn-success">Yes</button>';		 $all_checked = 'checked';}
+														{ 
+                                                            $import_checked = '<button type="button" class="btn btn-sm btn-block btn-success">Yes</button>';
+                                                            $all_checked = 'checked';
+                                                        }
 									
 														if(!empty($mpd->export_data))
-														{ $export_checked = '<button type="button" class="btn btn-sm btn-block btn-success">Yes</button>';		 $all_checked = 'checked';}
+														{ 
+                                                            $export_checked = '<button type="button" class="btn btn-sm btn-block btn-success">Yes</button>';		 
+                                                            $all_checked = 'checked';
+                                                        }
 													}
 								
 												}

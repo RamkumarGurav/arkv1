@@ -95,8 +95,55 @@ class Role_Manager_Model extends CI_Model
 		$query_get_list = $this->db->get();
 		$result = $query_get_list->result();
 
+
+
 		// Return the result
 		return $result;
+
+		//$result will be like this 
+		//1) for first request 
+		//  [0] => stdClass Objec([counts] => 3)
+		//2) for second request
+		/*Array(
+							[0] => stdClass Object(
+										[user_role_id] => 4
+										[user_role_name] => products manager
+										[added_on] => 2023-12-21 18:18:17
+										[added_by] => 1
+										[updated_on] => 
+										[updated_by] => 
+										[status] => 1
+										[added_by_name] => Abhishek Khandelwal
+										[updated_by_name] => 
+								)
+
+						[1] => stdClass Object
+								(
+										[user_role_id] => 3
+										[user_role_name] => Product Data Entry
+										[added_on] => 2022-11-26 18:14:31
+										[added_by] => 1
+										[updated_on] => 
+										[updated_by] => 
+										[status] => 1
+										[added_by_name] => Abhishek Khandelwal
+										[updated_by_name] => 
+								)
+
+						[2] => stdClass Object
+								(
+										[user_role_id] => 1
+										[user_role_name] => Super User
+										[added_on] => 2020-04-20 13:02:15
+										[added_by] => 1
+										[updated_on] => 2023-11-22 19:27:00
+										[updated_by] => 1
+										[status] => 1
+										[added_by_name] => Abhishek Khandelwal
+										[updated_by_name] => Abhishek Khandelwal
+								)
+
+					)*/
 	}
 
 }
