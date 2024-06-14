@@ -7,30 +7,46 @@ class Ajax extends Main
 	function __construct()
 	{
 		parent::__construct();
+
+		//db
 		$this->load->database();
+
+		//libraries
 		$this->load->library('session');
+		$this->load->library('User_auth');
+
+		//helpers
+		$this->load->helper('url');
+
+		//models
 		$this->load->model('Common_Model');
 		$this->load->model('administrator/Admin_Common_Model');
 		$this->load->model('administrator/Admin_model');
 		$this->load->model('administrator/Ajax_Model');
-		$this->load->library('User_auth');
 
+		//session data
 		$session_uid = $this->data['session_uid'] = $this->session->userdata('sess_psts_uid');
 		$this->data['session_name'] = $this->session->userdata('sess_psts_name');
 		$this->data['session_email'] = $this->session->userdata('sess_psts_email');
 		$this->data['sess_company_profile_id'] = $this->session->userdata('sess_company_profile_id');
 
-		$this->load->helper('url');
+
 
 		$this->data['User_auth_obj'] = new User_auth();
 		$this->data['user_data'] = $this->data['User_auth_obj']->check_user_status();
 		$sess_left_nav = $this->session->flashdata('sess_left_nav');
+
+
 		if (!empty($sess_left_nav)) {
 			$this->session->set_flashdata('sess_left_nav', $sess_left_nav);
 			$this->data['page_module_id'] = $sess_left_nav;
 		}
 
 	}
+
+	/****************************************************************
+	 *HELPERS
+	 ****************************************************************/
 
 	function unset_only()
 	{
@@ -41,6 +57,9 @@ class Ajax extends Main
 			}
 		}
 	}
+
+	/****************************************************************
+	 ****************************************************************/
 
 	/**
 	 * Get HTML of select Dropdown of states and states data json

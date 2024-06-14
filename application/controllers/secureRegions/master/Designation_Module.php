@@ -7,25 +7,38 @@ class Designation_Module extends Main
 	function __construct()
 	{
 		parent::__construct();
+
+		//db
 		$this->load->database();
+
+		//libraries
 		$this->load->library('session');
+		$this->load->library('pagination');
+		$this->load->library('User_auth');
+
+
+		//helpers
+		$this->load->helper('url');
+
+
+		//models
 		$this->load->model('Common_Model');
 		$this->load->model('administrator/Admin_Common_Model');
 		$this->load->model('administrator/Admin_model');
 		$this->load->model('administrator/master/Designation_Model');
-		$this->load->library('pagination');
 
-		$this->load->library('User_auth');
 
+		//session data
 		$session_uid = $this->data['session_uid'] = $this->session->userdata('sess_psts_uid');
 		$this->data['session_name'] = $this->session->userdata('sess_psts_name');
 		$this->data['session_email'] = $this->session->userdata('sess_psts_email');
 
-		$this->load->helper('url');
-
+		//admin user check sstatus
 		$this->data['User_auth_obj'] = new User_auth();
 		$this->data['user_data'] = $this->data['User_auth_obj']->check_user_status();
 
+
+		//headers
 		$this->output->set_header("Cache-Control: no-store, no-cache, must-revalidate, no-transform, max-age=0, post-check=0, pre-check=0");
 		$this->output->set_header("Pragma: no-cache");
 
@@ -61,11 +74,13 @@ class Designation_Module extends Main
 	{
 		$this->data['page_type'] = "list";
 		$this->data['page_module_id'] = 7;
-		$this->data['user_access'] = $this->data['User_auth_obj']->check_user_access(array("module_id" => $this->data['page_module_id']));
-		//print_r($this->data['user_access']);
+		$user_access = $this->data['user_access'] = $this->data['User_auth_obj']->check_user_access(array("module_id" => $this->data['page_module_id']));
+
+
 		if (empty($this->data['user_access'])) {
 			REDIRECT(MAINSITE_Admin . "wam/access-denied");
 		}
+
 		$search = array();
 		$field_name = '';
 		$field_value = '';
@@ -117,8 +132,7 @@ class Designation_Module extends Main
 		}
 		$per_page = _all_pagination_;
 
-		$this->load->library('pagination');
-		//$config['base_url'] =MAINSITE.'secure_region/reports/DispatchedOrders/'.$module_id.'/';
+
 		$this->load->library('pagination');
 		$config['base_url'] = MAINSITE_Admin . $this->data['user_access']->class_name . '/' . $this->data['user_access']->function_name . '/';
 		$config['total_rows'] = $r_count;
@@ -135,8 +149,8 @@ class Designation_Module extends Main
 
 		$this->pagination->initialize($config);
 
-		$this->data['page_is_master'] = $this->data['user_access']->is_master;
-		$this->data['page_parent_module_id'] = $this->data['user_access']->parent_module_id;
+		// $this->data['page_is_master'] = $this->data['user_access']->is_master;
+		// $this->data['page_parent_module_id'] = $this->data['user_access']->parent_module_id;
 
 		$search['limit'] = $per_page;
 		$search['offset'] = $offset;
@@ -211,14 +225,16 @@ class Designation_Module extends Main
 	{
 		$this->data['page_type'] = "list";
 		$this->data['page_module_id'] = 7;
-		$this->data['user_access'] = $this->data['User_auth_obj']->check_user_access(array("module_id" => $this->data['page_module_id']));
-		//print_r($this->data['user_access']);
+		$user_access = $this->data['user_access'] = $this->data['User_auth_obj']->check_user_access(array("module_id" => $this->data['page_module_id']));
+
+
 		if (empty($designation_id)) {
 			$alert_message = '<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><i class="icon fas fa-ban"></i> Something Went Wrong. Please Try Again. anubhav</div>';
 			$this->session->set_flashdata('alert_message', $alert_message);
 			REDIRECT(MAINSITE_Admin . $user_access->class_name . "/" . $user_access->function_name);
 			exit;
 		}
+
 		if (empty($this->data['user_access'])) {
 			REDIRECT(MAINSITE_Admin . "wam/access-denied");
 		}
@@ -245,7 +261,8 @@ class Designation_Module extends Main
 		$this->data['page_type'] = "list";
 		$this->data['page_module_id'] = 7;
 		$user_access = $this->data['user_access'] = $this->data['User_auth_obj']->check_user_access(array("module_id" => $this->data['page_module_id']));
-		//print_r($this->data['user_access']);
+
+
 		if (empty($this->data['user_access'])) {
 			REDIRECT(MAINSITE_Admin . "wam/access-denied");
 		}
@@ -262,8 +279,11 @@ class Designation_Module extends Main
 			}
 		}
 
-		$this->data['page_is_master'] = $this->data['user_access']->is_master;
-		$this->data['page_parent_module_id'] = $this->data['user_access']->parent_module_id;
+		// $this->data['page_is_master'] = $this->data['user_access']->is_master;
+		// $this->data['page_parent_module_id'] = $this->data['user_access']->parent_module_id;
+
+
+
 		if (!empty($designation_id)) {
 			$this->data['designation_master_data'] = $this->Designation_Model->get_designation_master(array("designation_id" => $designation_id));
 			if (empty($this->data['designation_master_data'])) {
@@ -295,7 +315,8 @@ class Designation_Module extends Main
 			exit;
 		}
 		$designation_id = $_POST['designation_id'];
-		//print_r($_POST);
+
+
 		if (empty($this->data['user_access'])) {
 			REDIRECT(MAINSITE_Admin . "wam/access-denied");
 		}
@@ -311,11 +332,12 @@ class Designation_Module extends Main
 				REDIRECT(MAINSITE_Admin . "wam/access-denied");
 			}
 		}
+
 		$designation_name = trim($_POST['designation_name']);
 		$status = $_POST['status'];
 		$is_exist = $this->Common_Model->getData(array('select' => '*', 'from' => 'designation_master', 'where' => "designation_name = '$designation_name' and designation_id != $designation_id"));
-		//	echo $this->db->last_query();
-		//	print_r($is_exist);
+
+
 		if (!empty($is_exist)) {
 			$alert_message = '<div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><i class="icon fas fa-ban"></i> Designation already exist in database.</div>';
 			$this->session->set_flashdata('alert_message', $alert_message);
@@ -361,9 +383,13 @@ class Designation_Module extends Main
 		$this->data['page_type'] = "list";
 		$this->data['page_module_id'] = 7;
 		$user_access = $this->data['user_access'] = $this->data['User_auth_obj']->check_user_access(array("module_id" => $this->data['page_module_id']));
-		//print_r($this->data['user_access']);
+
+
+
 		$task = $_POST['task'];
 		$id_arr = $_POST['sel_recds'];
+
+
 		if (empty($user_access)) {
 			REDIRECT(MAINSITE_Admin . "wam/access-denied");
 		}

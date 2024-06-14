@@ -207,7 +207,7 @@ if(!empty($employee_data))
 										<strong class="full">Data Base Id</strong>
 										<?=$employee_data->admin_user_id?></td>
 										<td >
-                                        	<strong class="full">Role</strong>
+                                        <strong class="full">Role</strong>
 										<? if(count($employee_data->roles) >1){ ?>
 											<table class="table table-hover text-nowrap" style="width:90%">
 											<thead>
@@ -281,10 +281,7 @@ if(!empty($employee_data))
                                         <?=$employee_data->fax_no?></td>
                                         
                                         
-                                        <strong class="full">Data View</strong>
-                                        <? if($employee_data->data_view==1){ ?> Yes <i class="fas fa-check btn-success btn-sm "></i>
-                                                <?}else{ ?> No <i class="fas fa-ban btn-danger btn-sm "></i>
-                                                <? }?></td>
+                                       
                                                 <td >
                                         <strong class="full">Files</strong>
                                         <? if(!empty($employee_data->files)){ ?>
@@ -297,6 +294,11 @@ if(!empty($employee_data))
                                                 <? }else{ ?>-<? } ?></td>
                                     </tr>
 									<tr>
+                                    <td >
+                                    <strong class="full">Data View</strong>
+                                        <? if($employee_data->data_view==1){ ?> Yes <i class="fas fa-check btn-success btn-sm "></i>
+                                                <?}else{ ?> No <i class="fas fa-ban btn-danger btn-sm "></i>
+                                                <? }?></td>
 										
 										<td >
 										<strong class="full">Last Login IP</strong>

@@ -95,7 +95,7 @@ if (!empty($users_role_master_data)) {
 												<th>Add</th>
 												<th>Update</th>
 												<? /* ?><th>Delete</th>
-																																																																																																																																																					 <th>Approval</th><? */ ?>
+																																																																																																																																																																																																																																																																																															<th>Approval</th><? */ ?>
 												<th>Import</th>
 												<th>Export</th>
 											</tr>
@@ -276,45 +276,72 @@ if (!empty($users_role_master_data)) {
 
 	window.addEventListener('load', function () {
 
+		// Variables to prevent infinite loops during the switch state changes
+		//When you change the state of one switch, it can trigger other switches to change their state. This could potentially create an infinite loop of state changes. For example:
+		// You toggle the "All" switch.
+		// This changes the states of all related "field" switches.
+		// Each "field" switch change might trigger logic that updates the "All" switch again. To prevent this situation we use below flags
 		var approve_all = false;
 		var approve_field = false;
 
-
+		// Event listener for changes to 'module_all' checkboxes
 		$('.module_all').on('switchChange.bootstrapSwitch', function (event, state) {
-			if (approve_field) { return false; }
-			console.log(state);
+
+			// If the 'approve_field' flag is true, exit the function to prevent recursion
+			if (approve_field) { return false: }
+
+			// Get the module ID from the data attribute of the checkbox
 			var module_id = $(this).attr("data-module_id");
+			// Set the 'approve_all' flag to true to indicate we're handling a 'module_all' switch change
 			approve_all = true;
+
+			// Change the state of all related 'module_field' checkboxes to match the 'module_all' checkbox
+			//$(".m_check_field_" + module_id) will be array of checkboxes 
 			$(".m_check_field_" + module_id).each(function (index) {
+				//here this is each checkbox , and we are assigning the "module_all"'s switch state to all its corresponding "$(".m_check_field_" + module_id)" switch state
 				$(this).bootstrapSwitch('state', state);
 			});
+			// Reset the 'approve_all' flag after handling the change
 			approve_all = false;
 		});
 
-		$('.module_field').on('switchChange.bootstrapSwitch', function (event, state) {//alert('dgf');
+		// Event listener for changes to 'module_field' checkboxes
+		$('.module_field').on('switchChange.bootstrapSwitch', function (event, state) {
+			// If the 'approve_all' flag is true, exit the function to prevent recursion
 			if (approve_all) { return false; }
+			// Set the 'approve_field' flag to true to indicate we're handling a 'module_field' switch change
 			approve_field = true;
+			// Get the module ID from the data attribute of the checkbox
 			var module_id = $(this).attr("data-module_id");
-			var status = false;
-			var total_count = 0;
-			var true_count = 0;
-			var false_count = 0;
+			var total_count = 0;  // Total number of 'module_field' checkboxes
+			var true_count = 0;   // Number of checked 'module_field' checkboxes
+			var false_count = 0;  // Number of unchecked 'module_field' checkboxes
+
+			// Iterate over all 'module_field' checkboxes related to the current module
 			$(".m_check_field_" + module_id).each(function (index) {
 				total_count++;
-				if ($(this).bootstrapSwitch('state')) { true_count++; }
-				else { false_count++; }
+				// Count the number of checked and unchecked checkboxes
+				//$(this).bootstrapSwitch('state') gives true or false based on switch state
+				if ($(this).bootstrapSwitch('state')) {
+					true_count++;
+				} else {
+					false_count++;
+				}
 			});
+
+			// Update the 'module_all' checkbox based on the states of the 'module_field' checkboxes
 			if (true_count == total_count) {
+				// If all 'module_field' checkboxes are checked, set the 'module_all' checkbox to checked
+				$(".m_check_all_" + module_id).bootstrapSwitch('state', true);
+			} else if (false_count == total_count) {
+				// If all 'module_field' checkboxes are unchecked, set the 'module_all' checkbox to unchecked
+				$(".m_check_all_" + module_id).bootstrapSwitch('state', false);
+			} else {
+				// If some 'module_field' checkboxes are checked and some are unchecked, set the 'module_all' checkbox to checked
 				$(".m_check_all_" + module_id).bootstrapSwitch('state', true);
 			}
 
-			else if (false_count == total_count) {
-				$(".m_check_all_" + module_id).bootstrapSwitch('state', false);
-			}
-			else {
-				$(".m_check_all_" + module_id).bootstrapSwitch('state', true);
-			}
-			//	console.log(true_count+' : '+false_count+' : '+total_count);
+			// Reset the 'approve_field' flag after handling the change
 			approve_field = false;
 		});
 	})

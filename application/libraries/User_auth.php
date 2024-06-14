@@ -11,13 +11,9 @@ class User_auth
 	function __construct()
 	{
 		$this->CI =& get_instance();
-
 		$this->CI->load->database();
-
 		$this->CI->load->library('session');
 		$this->CI->load->helper('url');
-
-
 		$this->CI->load->model('administrator/Admin_Common_Model');
 
 		$this->session_uid = $this->CI->session->userdata('sess_psts_uid');
@@ -34,10 +30,15 @@ class User_auth
 
 	function unset_only()
 	{
-		$user_data = $this->session->all_userdata();
+
+
+		// Get all user data from session
+		$user_data = $this->CI->session->all_userdata();
+
+		// Loop through user data and unset all except essential keys
 		foreach ($user_data as $key => $value) {
 			if ($key != 'session_id' && $key != 'ip_address' && $key != 'user_agent' && $key != 'last_activity') {
-				$this->session->unset_userdata($key);
+				$this->CI->session->unset_userdata($key);
 			}
 		}
 	}
@@ -51,11 +52,17 @@ class User_auth
 	 */
 	function check_user_status()
 	{
+
+
 		// Initialize user_data variable
 		$this->data['user_data'] = '';
 
+
+
 		// Check if the session user ID is greater than 0 and the session name is not empty
 		if ($this->session_uid > 0 && !empty($this->session_name)) {
+
+
 			// Retrieve admin user data
 			$this->data['user_data'] = $this->CI->Admin_Common_Model->get_admin_user_data(array());
 
@@ -76,6 +83,7 @@ class User_auth
 			} else {
 				// Clear specific session data and redirect to login page
 				$this->unset_only();
+
 				$this->CI->session->set_flashdata('alert_message', '<div class="alert alert-danger alert-dismissible">
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 							<i class="icon fas fa-ban"></i> Something Went Wrong. Please Try Again.
@@ -84,6 +92,9 @@ class User_auth
 				REDIRECT(MAINSITE_Admin . 'login');
 			}
 		} else {
+
+
+
 			// Clear specific session data and redirect to login page
 			$this->unset_only();
 			$this->CI->session->set_flashdata('alert_message', '<div class="alert alert-danger alert-dismissible">

@@ -16,6 +16,7 @@ class Main extends CI_Controller
 		$this->load->library('form_validation');
 		$this->load->library('User_auth');
 
+
 		//helpers
 		$this->load->helper('url');
 		$this->load->helper('form');
@@ -31,7 +32,6 @@ class Main extends CI_Controller
 		$this->data['session_name'] = $this->session->userdata('sess_psts_name');
 		$this->data['session_email'] = $this->session->userdata('sess_psts_email');
 
-
 		//checking logged in admin user status
 		$this->data['User_auth_obj'] = new User_auth();
 		$this->data['user_data'] = $this->data['User_auth_obj']->check_user_status();
@@ -46,7 +46,10 @@ class Main extends CI_Controller
 	}
 
 
-	//CLEARING SESSION DATA
+	/****************************************************************
+	 *HELPERS
+	 ****************************************************************/
+
 	function unset_only()
 	{
 		$user_data = $this->session->all_userdata();
@@ -56,6 +59,9 @@ class Main extends CI_Controller
 			}
 		}
 	}
+
+	/****************************************************************
+	 ****************************************************************/
 
 	/**
 	 * loads the header.
@@ -104,11 +110,12 @@ class Main extends CI_Controller
 
 		// The following lines are commented out but show how to get other types of menus.
 		// Get the left menu for company profiles and store it in the 'left_menu_company_profile' key of the data array.
-		// $this->data['left_menu_company_profile'] = $this->data['User_auth_obj']
-		// 	->get_left_menu_by_ismaster_params_moduleid(3, $params_arr);
+		$this->data['left_menu_company_profile'] = $this->data['User_auth_obj']
+			->get_left_menu_by_ismaster_params_moduleid(3, $params_arr);
 
 		// Get the left menu for employees and store it in the 'left_menu_employee' key of the data array.
-		// $this->data['left_menu_employee'] = $this->data['User_auth_obj']->get_left_menu_by_ismaster_params_moduleid(2, $params_arr);
+		$this->data['left_menu_employee'] = $this->data['User_auth_obj']
+			->get_left_menu_by_ismaster_params_moduleid(2, $params_arr);
 
 		// Get the left menu for catalog and store it in the 'left_menu_catalog' key of the data array.
 		// $this->data['left_menu_catalog'] = $this->data['User_auth_obj']

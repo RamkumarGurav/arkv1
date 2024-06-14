@@ -15,6 +15,7 @@ class Wam extends Main
 		$this->load->library('session');
 		$this->load->library('User_auth');
 
+
 		//helpers
 		$this->load->helper('url');
 
@@ -35,7 +36,6 @@ class Wam extends Main
 		$this->data['session_email'] = $this->session->userdata('sess_psts_email');
 		$this->data['sess_fiscal_year_id'] = $this->session->userdata('sess_fiscal_year_id');
 		$this->data['sess_company_profile_id'] = $this->session->userdata('sess_company_profile_id');
-
 
 		// getting user data from User_auth
 		$this->data['User_auth_obj'] = new User_auth();
@@ -69,6 +69,11 @@ class Wam extends Main
 	 */
 	function index()
 	{
+
+		if (empty($this->data['session_uid']) && empty($this->data['session_name']) && empty($this->data['session_email'])) {
+			// Redirect to the main admin page(default dashboard) if the user is already logged in and the screen is not locked
+			REDIRECT(MAINSITE_Admin . "login");
+		}
 
 		$this->data['is_module_id_25'] = 0;
 		$this->data['is_module_id_25_data'] = '';
@@ -218,6 +223,9 @@ class Wam extends Main
 	}
 
 
+	/**
+	 * LOCK THE SCREEN button action
+	 */
 	function lock_screen()
 	{
 		$this->session->set_userdata('screen_lock', "lock_the_screen");

@@ -345,4 +345,5 @@ function validateRecordsBlock() // done
         document.ptype_list_form.submit();
     }
 }
+
 </script>
